@@ -3,8 +3,7 @@
 
 Bonanzaをベースに作った接待将棋用のプログラムです。
 USIプロトコルに対応しておりhttp://www.geocities.jp/shogi_depot/doc/bonanza_usi.htm を参考に実装しています。
-バイナリは近いうちに作るつもりですが多分Visual C++ではコンパイルできるはずです。
-(MinGWだとエラーが出るので修正中です。)
+バイナリは近いうちに作るつもりです。
 Bonanzaのfv.binとbook.bin、flip.csa、game.csaが必要です。
 Bonanzaのページからダウンロードしてください。
 
