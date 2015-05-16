@@ -1,10 +1,9 @@
 ﻿# Bonanse 1.0.1
 
+
 Bonanzaをベースに作った接待将棋用のプログラムです。
-元のソースコードの権利は保木さんにあるのでBonanzaのライセンスを守ってください。
-bonanse.exeはcsaプロトコル、bonanse_usi.exeはUSIプロトコルに対応しています。
-しかし、USIプロトコルは未実装の部分が多いので不具合が出るかもしれません。
-USIプロトコルは http://www.geocities.jp/shogi_depot/doc/bonanza_usi.htm を参考に実装しています。
+USIプロトコルに対応しておりhttp://www.geocities.jp/shogi_depot/doc/bonanza_usi.htm を参考に実装しています。
+
 
 [LevelControl.txtの書き方]
 
@@ -29,7 +28,8 @@ USIプロトコルは http://www.geocities.jp/shogi_depot/doc/bonanza_usi.htm �
 
 なお、ステップ幅を使用する場合はブレ幅も同じくらいに設定してください
 
-[履歴]
+
+[バージョン]
 
 Version 1.0.1
 プログラム名を変更
