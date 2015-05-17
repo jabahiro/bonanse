@@ -1,4 +1,4 @@
-﻿# Bonanse 1.0.1
+﻿# Bonanse 
 
 
 Bonanzaをベースに作った接待将棋用のプログラムです。
