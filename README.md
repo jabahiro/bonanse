@@ -2,9 +2,14 @@
 
 
 Bonanzaをベースに作った接待将棋用のプログラムです。
+
 USIプロトコルに対応しておりhttp://www.geocities.jp/shogi_depot/doc/bonanza_usi.htm を参考に実装しています。
 バイナリは近いうちに作るつもりです。
+
 Bonanzaのfv.binとbook.bin、flip.csa、game.csaが必要です。
+
+CSA将棋で遊ぶ場合ではさらにcsa.exe、sikou.dllが必要です。
+
 Bonanzaのページからダウンロードしてください。
 
 
