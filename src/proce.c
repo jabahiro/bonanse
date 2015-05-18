@@ -540,12 +540,16 @@ set_usi_option( tree_t * restrict ptree, const char *name, const char *value )
     }
   else if ( ! strcmp( name, usi_name.ponder ) )
     {
-/* (not implemented)
+
+
+//(not implemented)
+
       strcpy( usi_value.ponder, value );
       sprintf( str, "ponder %s", ( ! strcmp( usi_value.ponder, "true" ) ? str_on : str_off ) );
       token = strtok_r( str, str_delimiters, &last );
       cmd_ponder( &last );
-*/
+
+
     }
   else if ( ! strcmp( name, usi_name.threads ) )
     {
