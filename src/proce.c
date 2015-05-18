@@ -462,6 +462,8 @@ init_usi_option( void )
   usi_value.memory  = 12;
   strcpy( usi_value.ponder,      "false" );
   usi_value.threads = 1;
+  strcpy( usi_settaimode, "true" );
+  // strcpy( usi_value.);
 }
 
 
