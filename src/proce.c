@@ -566,6 +566,10 @@ set_usi_option( tree_t * restrict ptree, const char *name, const char *value )
       cmd_thread( &last );
 #endif
     }
+  else if ( ! strcmp( name, usi_name.settaimode ) )
+    {
+
+    }
 }
 
 
