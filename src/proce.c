@@ -21,6 +21,7 @@ struct {
 	char memory[ BUFSIZ ];
 	char ponder[ BUFSIZ ];
 	char threads[ BUFSIZ ];
+       char settaimode[ BUFSIZ ];
 } usi_name;
 struct {
 	char time_control[ BUFSIZ ];
@@ -35,6 +36,10 @@ struct {
 	int memory;
 	char ponder[ BUFSIZ ];
 	int threads;
+       char settaimode[ BUFSIZ ];
+       int limit_value;  //限界値
+       int deflection_width; //ブレ幅
+       int step_width; //ステップ幅
 } usi_value;
 #endif
 
