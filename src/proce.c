@@ -462,8 +462,7 @@ init_usi_option( void )
   usi_value.memory  = 12;
   strcpy( usi_value.ponder,      "false" );
   usi_value.threads = 1;
-  strcpy( usi_settaimode, "true" );
-  // strcpy( usi_value.);
+  strcpy( usi_value.settaimode, "true" );
 }
 
 
@@ -544,14 +543,14 @@ set_usi_option( tree_t * restrict ptree, const char *name, const char *value )
     {
 
 
-//(not implemented)
+/* (not implemented)
 
       strcpy( usi_value.ponder, value );
       sprintf( str, "ponder %s", ( ! strcmp( usi_value.ponder, "true" ) ? str_on : str_off ) );
       token = strtok_r( str, str_delimiters, &last );
       cmd_ponder( &last );
 
-
+*/
     }
   else if ( ! strcmp( name, usi_name.threads ) )
     {
