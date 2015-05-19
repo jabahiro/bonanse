@@ -158,7 +158,10 @@ searchr( tree_t * restrict ptree, int alpha, int beta, int turn, int depth )
 	  new_depth = depth + extension;
 	  value = -search_wrapper( ptree, -beta, -alpha, Flip(turn),
 				   new_depth, 2, state_node_new );
-          value = ValueFilter(value);
+         if (usi_value.settaimode = "true")
+         {
+              value = ValueFilter(value);
+         }
 	  if ( root_abort )
 	    {
 	      UnMakeMove( turn, MOVE_CURR, 1 );
@@ -183,13 +186,19 @@ searchr( tree_t * restrict ptree, int alpha, int beta, int turn, int depth )
 	      
 	      value = -search_wrapper( ptree, -bound-1, -bound, Flip(turn),
 				       new_depth, 2, state_node_new );
+         if (usi_value.settaimode = "true")
+         {
               value = ValueFilter(value);
+         }
 	      if ( ! root_abort && bound < value )
 		{
 		  new_depth = depth + extension;
 		  value = -search_wrapper( ptree, -beta, -bound, Flip(turn),
 					   new_depth, 2, state_node_new );
-                  value = ValueFilter(value);
+         if (usi_value.settaimode = "true")
+         {
+              value = ValueFilter(value);
+         }
 		}
 	      if ( root_abort )
 		{
@@ -227,13 +236,19 @@ searchr( tree_t * restrict ptree, int alpha, int beta, int turn, int depth )
 
         value = -search_wrapper( ptree, -alpha-1, -alpha, Flip(turn),
 				 new_depth, 2, state_node_new );
-        value = ValueFilter(value);
+           if (usi_value.settaimode = "true")
+         {
+              value = ValueFilter(value);
+         }
         if ( ! root_abort && alpha < value && depth_reduced )
           {
             new_depth += depth_reduced;
             value = -search_wrapper( ptree, -alpha-1, -alpha, Flip(turn),
 				     new_depth, 2, state_node_new );
-	    ValueFilter(value);
+         if (usi_value.settaimode = "true")
+         {
+              value = ValueFilter(value);
+         }
           }
 	if ( root_abort )
 	  {
@@ -273,7 +288,10 @@ searchr( tree_t * restrict ptree, int alpha, int beta, int turn, int depth )
 	    easy_abs  = 0;
 	    value = -search_wrapper( ptree, -beta, -alpha, Flip(turn),
 				     new_depth, 2, state_node_new );
-            value = ValueFilter(value);
+         if (usi_value.settaimode = "true")
+         {
+              value = ValueFilter(value);
+         }
 	    if ( root_abort )
 	      {
 		const char *str;
