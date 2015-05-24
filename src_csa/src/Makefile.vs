@@ -24,7 +24,7 @@ help:
 # /DDFPN            build the DFPN worker of mate-problems server.
 # /DDFPN_CLIENT     enables the client-mode of mate-problem server.
 
-FLAG = /DNDEBUG /DMINIMUM /DTLP /DHAVE_SSE2 /DINANIWA_SHIFT /DUSI /DNO_LOGGING
+FLAG = /DNDEBUG /DMINIMUM /DTLP /DHAVE_SSE2 /DINANIWA_SHIFT /DCSASHOGI /DNO_LOGGING
 
 OBJS = data.obj main.obj io.obj proce.obj ini.obj utility.obj attack.obj\
        gencap.obj gennocap.obj gendrop.obj genevasn.obj mate3.obj genchk.obj\
