@@ -624,7 +624,7 @@ static int CONV proce_usi( tree_t * restrict ptree )
 
   if ( ! strcmp( token, "usi" ) )
     {
-      USIOut( "id name Bonanse 1.0.1");
+      USIOut( "id name Bonanse " BNZ_VER "\n");
       USIOut( "id author \n" );
 
       /* options */
