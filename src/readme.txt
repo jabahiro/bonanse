@@ -52,12 +52,6 @@ Within these limits, you can use, redistribute, and/or modify it.
 3. Change Logs
 ---------------
 
-Version 6.0.b
-
-Shotaro Ohmori made a fix which is needed to play games in floodgate.
-This adopts the fix.
-
-
 Version 6.0.a
 
 This corrects some important errors found in 'learn1.c' and 'next.c'.
