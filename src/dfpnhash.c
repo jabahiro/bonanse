@@ -4,7 +4,7 @@
 #include "shogi.h"
 #include "dfpn.h"
 
-#if defined(DEBUG)
+#if defined(DEBUG) || defined(_DEBUG)
 static int CONV dbg_is_hand_valid( unsigned int hand );
 #endif
 
@@ -606,7 +606,7 @@ hand_and( unsigned int a, unsigned int b )
   return c;
 }
 
-#if defined(DEBUG)
+#if defined(DEBUG) || defined(_DEBUG)
 static int CONV
 dbg_is_hand_valid( unsigned int hand )
 {

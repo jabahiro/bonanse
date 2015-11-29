@@ -4,6 +4,9 @@
 #include <assert.h>
 #include "shogi.h"
 
+static int ntrans_table_sv;
+static int ntrans_table_used;
+
 static int CONV eval_supe( unsigned int hand_current, unsigned int hand_hash,
 			   int turn_current, int turn_hash,
 			   int * restrict pvalue_hash,
@@ -25,7 +28,17 @@ ini_trans_table( void )
   Out( "Trans. Table Entries = %dK (%dMB)\n",
        ( ntrans_table * 3U ) / 1024U, size / (1024U * 1024U ) );
 
+  ntrans_table_sv = (int)ntrans_table/1000;
+  ntrans_table_used = 0;
   return clear_trans_table();
+}
+
+int CONV
+get_trans_table_used(void)
+{
+	if (ntrans_table_used > 0 && ntrans_table_sv > 0)
+		return (int)  ntrans_table_used / ntrans_table_sv;
+	else return 0;
 }
 
 
@@ -121,6 +134,7 @@ hash_store( const tree_t * restrict ptree, int ply, int depth, int turn,
 
   index = (unsigned int)HASH_KEY & hash_mask;
   hash_word1 = ptrans_table[index].prefer.word1;
+  if (hash_word1 == 0) ntrans_table_used++;
   hash_word2 = ptrans_table[index].prefer.word2;
   SignKey( hash_word2, hash_word1 );
   age_hash   = (int)((unsigned int)(hash_word2    ) & 0x07U);

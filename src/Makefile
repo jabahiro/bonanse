@@ -23,11 +23,12 @@ OBJS =data.o main.o io.o proce.o utility.o ini.o attack.o book.o makemove.o \
 # -DDFPN             build the DFPN worker of mate-problems server.
 # -DDFPN_CLIENT      enables the client-mode of mate-problem server.
 
-OPT =-DNDEBUG -DMINIMUM -DHAVE_SSE4 -msse4.1 -DDFPN -DTLP -DDFPN_CLIENT -DINANIWA_SHIFT -DMNJ_LAN -DUSI
+OPT =-DNDEBUG -DMINIMUM -DHAVE_SSE4 -msse4.1 -DDFPN -DTLP -DDFPN_CLIENT -DINANIWA_SHIFT -DMNJ_LAN -DUSI -DNO_LOGGING
 
 help:
 	@echo "try targets as:"
 	@echo
+	@echo "  mingw"
 	@echo "  gcc"
 	@echo "  gcc-pg"
 	@echo "  gcc-pgo"
@@ -35,31 +36,34 @@ help:
 	@echo "  icc-pgo"
 	@echo "  icc-ampl"
 
+mingw:
+	$(MAKE) CC=x86_64-w64-mingw32-gcc CFLAGS='-std=gnu99 -O2 -Wall $(OPT)' LDFLAG2='-lws2_32 -lm -lpthread' bonanza.exe
+
 gcc:
-	$(MAKE) CC=gcc CFLAGS='-std=gnu99 -O2 -Wall $(OPT)' LDFLAG1='-lm -lpthread' bonanse
+	$(MAKE) CC=gcc CFLAGS='-std=gnu99 -O2 -Wall $(OPT)' LDFLAG1='-lm -lpthread' bonanza
 
 gcc-pgo:
 	$(MAKE) clean
-	gcc -std=gnu99 -O2 -Wall $(OPT) -fprofile-generate -o bonanse -lm -lpthread $(OBJS:.o=.c)
+	gcc -std=gnu99 -O2 -Wall $(OPT) -fprofile-generate -o bonanza -lm -lpthread $(OBJS:.o=.c)
 	$(MAKE) run-prof
-	gcc -std=gnu99 -O2 -Wall $(OPT) -fprofile-use -o bonanse -lm -lpthread $(OBJS:.o=.c)
+	gcc -std=gnu99 -O2 -Wall $(OPT) -fprofile-use -o bonanza -lm -lpthread $(OBJS:.o=.c)
 
 icc-ampl:
-	$(MAKE) CC=icc CFLAGS='-w2 $(OPT) -std=gnu99 -g -O2 -fno-inline-functions' LDFLAG1='-pthread -g' bonanse
+	$(MAKE) CC=icc CFLAGS='-w2 $(OPT) -std=gnu99 -g -O2 -fno-inline-functions' LDFLAG1='-pthread -g' bonanza
 
 icc:
-	$(MAKE) CC=icc CFLAGS='-w2 $(OPT) -std=gnu99 -O2 -ipo' LDFLAG1='-static -ipo -pthread' bonanse
+	$(MAKE) CC=icc CFLAGS='-w2 $(OPT) -std=gnu99 -O2 -ipo' LDFLAG1='-static -ipo -pthread' bonanza
 
 icc-pgo:
 	$(MAKE) clean
 	mkdir profdir
-	$(MAKE) CC=icc CFLAGS='-w2 $(OPT) -std=gnu99 -O2 -prof_gen -prof_dir ./profdir' LDFLAG1='-static -pthread' bonanse
+	$(MAKE) CC=icc CFLAGS='-w2 $(OPT) -std=gnu99 -O2 -prof_gen -prof_dir ./profdir' LDFLAG1='-static -pthread' bonanza
 	$(MAKE) run-prof
 	touch *.[ch]
-	$(MAKE) CC=icc CFLAGS='-w2 $(OPT) -std=gnu99 -O2 -ipo -prof_use -prof_dir ./profdir' LDFLAG1='-static -ipo -pthread' bonanse
+	$(MAKE) CC=icc CFLAGS='-w2 $(OPT) -std=gnu99 -O2 -ipo -prof_use -prof_dir ./profdir' LDFLAG1='-static -ipo -pthread' bonanza
 
-bonanse : $(OBJS)
-	$(CC) $(LDFLAG1) $(OBJS) -o bonanse $(LDFLAG2)
+bonanza : $(OBJS)
+	$(CC) $(LDFLAG1) -o bonanza $(OBJS) $(LDFLAG2)
 
 $(OBJS) : shogi.h param.h bitop.h
 dfpn.o dfpnhash.o: dfpn.h
@@ -69,7 +73,7 @@ dfpn.o dfpnhash.o: dfpn.h
 
 clean :
 	rm -f *.o *.il *.da *.gcda *.gcno *.bb *.bbg *.dyn
-	rm -f  bonanse gmon.out runprof
+	rm -f  bonanza gmon.out runprof
 	rm -fr profdir
 
 run-prof:
@@ -95,4 +99,4 @@ run-prof:
 	@echo "new"                   >> runprof
 	@echo "move 77"               >> runprof
 	@echo "quit"                  >> runprof
-	@./bonanse < runprof
+	@./bonanza < runprof

@@ -7,7 +7,7 @@
 
 #if defined(_WIN32)
 
-#  include <Winsock2.h>
+#  include <winsock2.h>
 #  define CONV              __fastcall
 #  define SCKT_NULL         INVALID_SOCKET
 typedef SOCKET sckt_t;
@@ -36,6 +36,7 @@ typedef int sckt_t;
 #  define strtok_r      strtok_s
 #  define read          _read
 #  define strncpy( dst, src, len ) strncpy_s( dst, len, src, _TRUNCATE )
+#  define strncat( dst, src, len ) strncat_s( dst, len, src, _TRUNCATE )
 #  define snprintf( buf, size, fmt, ... )   \
           _snprintf_s( buf, size, _TRUNCATE, fmt, __VA_ARGS__ )
 #  define vsnprintf( buf, size, fmt, list ) \
@@ -77,6 +78,13 @@ extern unsigned char ailast_one[512];
 #  endif
 #endif
 
+#if defined(USI)
+#  define NO_STDOUT
+#  if ! defined(WIN32_PIPE)
+#    define WIN32_PIPE
+#  endif
+#endif
+
 #if defined(TLP)
 #  define SHARE volatile
 #  define SEARCH_ABORT ( root_abort || ptree->tlp_abort )
@@ -97,7 +105,7 @@ extern unsigned char ailast_one[512];
 #define SEC_KEEP_ALIVE          180U
 #define TIME_RESPONSE           200U
 #define RESIGN_THRESHOLD       ( ( MT_CAP_DRAGON * 5 ) /  8 )
-#define BNZ_VER                 "1.0.1"
+#define BNZ_VER                 "6.0.a Settai"
 
 #define REP_MAX_PLY             32
 #define REP_HIST_LEN            256
@@ -985,6 +993,7 @@ void CONV pv_copy( tree_t * restrict ptree, int ply );
 void set_derivative_param( void );
 void CONV set_search_limit_time( int turn );
 void CONV ehash_clear( void );
+int CONV get_trans_table_used(void);
 void CONV hash_store_pv( const tree_t * restrict ptree, unsigned int move,
 			 int turn );
 void CONV check_futile_score_quies( const tree_t * restrict ptree,

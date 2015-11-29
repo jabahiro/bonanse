@@ -617,6 +617,9 @@ read_game( parse1_data_t *pdata )
       if ( ! imove )
 	{
 	  *(pdata->ptree)  = *ptree;
+	  pdata->ptree->move_last[0] = pdata->ptree->amove;
+	  pdata->ptree->move_last[1] = pdata->ptree->amove;
+	  pdata->ptree->tlp_id = 0;
 	  pdata->root_turn = root_turn;
 	}
 

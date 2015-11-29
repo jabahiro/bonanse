@@ -152,7 +152,15 @@ book_probe( tree_t * restrict ptree )
 	  
 	  Out( "  %c %s  %5.1f\n", i == j ? '*' : ' ', str, dscore * 100.0 );
 	  OutCsaShogi( " %s(%.0f%%)", str, dscore * 100.0 );
-	}
+#if defined(USI)
+	  if (usi_mode != usi_off)
+	  {
+		  char str_usi[6];
+		  csa2usi(ptree, str, str_usi);
+		  USIOut("info depth 1 score cp 0 nodes %d pv %s\n", abook_move[i].freq, str_usi);
+	  }
+#endif
+	  }
       OutCsaShogi( "\n" );
     }
 
@@ -701,15 +709,15 @@ make_cell_csa( tree_t * restrict ptree, record_t *pr, cell_t *pcell,
       istatus = in_CSA( ptree, pr, &move, flag_nomake_move );
       if ( ! ply )
 	{
-	  black_bnz = strcmp( pr->str_name1, "Bonanse" ) ? 0 : 1;
-	  white_bnz = strcmp( pr->str_name2, "Bonanse" ) ? 0 : 1;
-	  if ( ! strcmp( pr->str_name1, "Bonanse" ) )
+	  black_bnz = strcmp( pr->str_name1, "Bonanza" ) ? 0 : 1;
+	  white_bnz = strcmp( pr->str_name2, "Bonanza" ) ? 0 : 1;
+	  if ( ! strcmp( pr->str_name1, "Bonanza" ) )
 	    {
 	      black_bnz   = 1;
 	      nbnz_black += 1;
 	    }
 	  else { black_bnz = 0; }
-	  if ( ! strcmp( pr->str_name2, "Bonanse" ) )
+	  if ( ! strcmp( pr->str_name2, "Bonanza" ) )
 	    {
 	      white_bnz   = 1;
 	      nbnz_white += 1;

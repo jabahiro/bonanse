@@ -125,10 +125,25 @@ dfpn( tree_t * restrict ptree, int turn, int ply )
       str = str_CSA_move(pnode->children[i].move);
       Out( "RESULT: WIN %s\n", str );
       DFPNOut( "WIN %s\n", str );
-    }
+#if defined(USI)
+	  if (usi_mode != usi_off)
+	  {
+		  char buf[6];
+		  csa2usi(ptree, str, buf);
+		  USIOut("checkmate %s\n",buf); 
+	  }
+#endif
+
+  }
   else {
     Out( "RESULT: LOSE\n" );
     DFPNOut( "LOSE\n" );
+#if defined(USI)
+	if (usi_mode != usi_off)
+	{
+		USIOut("checkmate nomate\n");
+	}
+#endif
   }
 
   fsat = dfpn_hash_sat();

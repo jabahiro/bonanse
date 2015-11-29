@@ -166,7 +166,7 @@ dfpn_client_start( const tree_t * restrict ptree )
 #    pragma warning(disable:869)
 #  endif
 
-#  if defined(_MSC_VER)
+#  if defined(_MSC_VER) || defined(__WIN32)
 static unsigned int __stdcall dfpn_client_receiver( void *arg )
 #  else
 static void *dfpn_client_receiver( void *arg )
@@ -366,7 +366,7 @@ static int CONV proce_line( char *line_buf )
 
 #if defined(TLP)
 
-#  if defined(_WIN32)
+#  if defined(_WIN32) 
 static unsigned int __stdcall start_address( void *arg );
 #  else
 static void *start_address( void *arg );
@@ -525,7 +525,7 @@ tlp_is_descendant( const tree_t * restrict ptree, int slot_ancestor )
 }
 
 
-#  if defined(_MSC_VER)
+#  if defined(_MSC_VER) || defined(__WIN32)
 static unsigned int __stdcall start_address( void *arg )
 #  else
 static void *start_address( void *arg )

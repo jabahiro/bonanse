@@ -24,6 +24,7 @@ static int CONV next_root_move( tree_t * restrict ptree );
 static int CONV next_root_move( tree_t * restrict ptree, int turn );
 #endif
 
+
 static int RandomNumber = 0;
 static void SetRandomNumber( void );
 int LevelControl[3];
@@ -119,8 +120,6 @@ searchr( tree_t * restrict ptree, int alpha, int beta, int turn, int depth )
   first_move          = 1;
   ply                 = 1;
   ptree->move_last[1] = ptree->move_last[0];
-  
-  SetRandomNumber();
 
   while( NextRootMove( ptree, turn ) )
     {
@@ -157,11 +156,9 @@ searchr( tree_t * restrict ptree, int alpha, int beta, int turn, int depth )
 #endif
 	  new_depth = depth + extension;
 	  value = -search_wrapper( ptree, -beta, -alpha, Flip(turn),
-				   new_depth, 2, state_node_new );
-         if (usi_value.settaimode = "true")
-         {
-              value = ValueFilter(value);
-         }
+				   new_depth, 2, state_node_new ); 	
+
+	   value = ValueFilter(value);
 	  if ( root_abort )
 	    {
 	      UnMakeMove( turn, MOVE_CURR, 1 );
@@ -186,19 +183,13 @@ searchr( tree_t * restrict ptree, int alpha, int beta, int turn, int depth )
 	      
 	      value = -search_wrapper( ptree, -bound-1, -bound, Flip(turn),
 				       new_depth, 2, state_node_new );
-         if (usi_value.settaimode = "true")
-         {
-              value = ValueFilter(value);
-         }
+					   value = ValueFilter(value);
 	      if ( ! root_abort && bound < value )
 		{
 		  new_depth = depth + extension;
 		  value = -search_wrapper( ptree, -beta, -bound, Flip(turn),
 					   new_depth, 2, state_node_new );
-         if (usi_value.settaimode = "true")
-         {
-              value = ValueFilter(value);
-         }
+					   value = ValueFilter(value);
 		}
 	      if ( root_abort )
 		{
@@ -236,19 +227,13 @@ searchr( tree_t * restrict ptree, int alpha, int beta, int turn, int depth )
 
         value = -search_wrapper( ptree, -alpha-1, -alpha, Flip(turn),
 				 new_depth, 2, state_node_new );
-           if (usi_value.settaimode = "true")
-         {
-              value = ValueFilter(value);
-         }
+				 value = ValueFilter(value);
         if ( ! root_abort && alpha < value && depth_reduced )
           {
             new_depth += depth_reduced;
             value = -search_wrapper( ptree, -alpha-1, -alpha, Flip(turn),
 				     new_depth, 2, state_node_new );
-         if (usi_value.settaimode = "true")
-         {
-              value = ValueFilter(value);
-         }
+			value = ValueFilter(value);
           }
 	if ( root_abort )
 	  {
@@ -279,19 +264,16 @@ searchr( tree_t * restrict ptree, int alpha, int beta, int turn, int depth )
 	    if ( usi_mode != usi_off )
 	      {
 		USIOut( "info depth %d score cp %d nodes %" PRIu64 " pv %s\n",
-			iteration_depth, alpha+1, ptree->node_searched,
-			str_usi );
+			iteration_depth, (turn == root_turn ? alpha + 1 : -(alpha + 1)),
+			ptree->node_searched, str_usi );
 	      }
 #endif
 
 	    new_depth = depth + extension;
 	    easy_abs  = 0;
 	    value = -search_wrapper( ptree, -beta, -alpha, Flip(turn),
-				     new_depth, 2, state_node_new );
-         if (usi_value.settaimode = "true")
-         {
-              value = ValueFilter(value);
-         }
+				     new_depth, 2, state_node_new );		 
+		value = ValueFilter(value);
 	    if ( root_abort )
 	      {
 		const char *str;
@@ -374,9 +356,10 @@ out_pv( tree_t * restrict ptree, int value, int turn, unsigned int time )
 #endif
   const char *str;
   double dvalue;
-  int ply, tt, is_out;
+  int ply, tt, rvalue, is_out;
 
   tt     = turn;
+  rvalue = value;
   is_out = ( 4 < iteration_depth || abs(value) > score_max_eval ) ? 1 : 0;
 
 #if defined(MPV)
@@ -426,7 +409,7 @@ out_pv( tree_t * restrict ptree, int value, int turn, unsigned int time )
 	  Out( "%2d.%c%-7s", ply, ach_turn[tt], str );
 
 #if defined(USI)
-	  if ( usi_mode != usi_off && ply <= 4 )
+	  if ( usi_mode != usi_off  )
 	    {
 	      char str_usi[6];
 	      csa2usi( ptree, str_CSA_move(ptree->pv[0].a[ply]), str_usi );
@@ -472,7 +455,7 @@ out_pv( tree_t * restrict ptree, int value, int turn, unsigned int time )
 	      Out( "%2d:%c%-7s", ply, ach_turn[tt], str );
 
 #if defined(USI)
-	      if ( usi_mode != usi_off && ply <= 4 )
+	      if ( usi_mode != usi_off )
 		{
 		  char str_usi[6];
 		  csa2usi( ptree, str_CSA_move(ptree->pv[0].a[ply]), str_usi );
@@ -526,8 +509,9 @@ out_pv( tree_t * restrict ptree, int value, int turn, unsigned int time )
     {
       OutCsaShogi( "\n" );
       Out( "\n" );
-      USIOut( "info depth %d score cp %d nodes %" PRIu64 " pv%s\n",
-	      iteration_depth, value, ptree->node_searched, str_pv );
+      USIOut( "info time %d depth %d score cp %d nodes %" PRIu64 " pv%s\n",
+	      time, iteration_depth, (turn == root_turn ? rvalue : -rvalue),
+	      ptree->node_searched, str_pv );
     }
 } 
 
@@ -631,19 +615,27 @@ static void CONV
 mpv_out( tree_t * restrict ptree, int turn, unsigned int time )
 {
   int mpv_out, ipv, best;
+#if defined(USI)
+  char str_pv[512];
+  int uipv;
+#endif
 
   best    = (int)mpv_pv[0].a[0] - 32768;
   mpv_out = ( iteration_depth > 3 || abs(best) > score_max_eval ) ? 1 : 0;
-
+  
   for ( ipv = 0; mpv_pv[ipv].length; ipv++ )
     {
       const char *str;
       double dvalue;
-      int tt, is_out, value, ply;
+      int tt, is_out, mpv_value, value, ply;
 
-      assert( ipv < mpv_num*2 );
-      tt     = turn;
-      value  = (int)mpv_pv[ipv].a[0] - 32768;
+#if defined(USI)
+	  uipv = 0;
+	  str_pv[0] = '\0';
+#endif
+	  assert( ipv < mpv_num*2 );
+      tt    = turn;
+      value = mpv_value = (int)mpv_pv[ipv].a[0] - 32768;
       if ( mpv_out && value > best - mpv_width && ipv < mpv_num )
 	{
 	  is_out = 1;
@@ -652,7 +644,7 @@ mpv_out( tree_t * restrict ptree, int turn, unsigned int time )
 
       if ( is_out )
 	{
-	  dvalue = (double)( turn ? -value : value ) / 100.0;
+	  dvalue = (double)( turn ? -mpv_value : mpv_value ) / 100.0;
 	  if ( is_out && ! ipv ) { OutCsaShogi( "info" ); }
 	  if ( is_out && ipv )   { OutCsaShogi( ":" ); }
 
@@ -680,7 +672,17 @@ mpv_out( tree_t * restrict ptree, int turn, unsigned int time )
 	      str = str_CSA_move(mpv_pv[ipv].a[ply]);
 	      OutCsaShogi( " %c%s", ach_turn[tt], str );
 	      Out( "%2d.%c%-11s", ply, ach_turn[tt], str );
-	    }
+
+#if defined(USI)
+		  if (usi_mode != usi_off)
+		  {
+				char str_usi[6];
+				csa2usi(ptree, str_CSA_move(mpv_pv[ipv].a[ply]), str_usi);
+				uipv += snprintf(str_pv + uipv, 256 - uipv, " %s", str_usi);
+		  }
+#endif
+	  }
+
 	  
 	  assert( is_move_valid( ptree, mpv_pv[ipv].a[ply], tt ) );
 	  MakeMove( tt, mpv_pv[ipv].a[ply], ply );
@@ -719,7 +721,16 @@ mpv_out( tree_t * restrict ptree, int turn, unsigned int time )
 		  str = str_CSA_move(mpv_pv[ipv].a[ply]);
 		  OutCsaShogi( " %c%s", ach_turn[tt], str );
 		  Out( "%2d:%c%-11s", ply, ach_turn[tt], str );
-		}
+
+#if defined(USI)
+		  if (usi_mode != usi_off)
+		  {
+			  char str_usi[6];
+			  csa2usi(ptree, str_CSA_move(mpv_pv[ipv].a[ply]), str_usi);
+			  uipv += snprintf(str_pv + uipv, 256 - uipv, " %s", str_usi);
+		  }
+#endif		  
+		  }
 
 	      MakeMove( tt, mpv_pv[ipv].a[ply], ply );
 	      if ( InCheck(tt) )
@@ -761,7 +772,18 @@ mpv_out( tree_t * restrict ptree, int turn, unsigned int time )
 	  UnMakeMove( tt, mpv_pv[ipv].a[ply], ply );
 	}
 
-      if ( is_out ) { Out( "\n" ); }
+      if ( is_out ) 
+	  { 
+		  Out( "\n" );
+#if defined(USI)
+		  if (usi_mode != usi_off)
+		  {
+			  USIOut("info depth %d multipv %d score cp %d nodes %" PRIu64 " time %d pv%s\n",
+				  iteration_depth, ipv + 1, (turn == root_turn ? mpv_value : -mpv_value),
+				  ptree->node_searched, time, str_pv);
+		  }
+#endif
+	  }
     }
 
   if ( mpv_out ) { OutCsaShogi( "\n" ); }

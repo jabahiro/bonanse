@@ -28,7 +28,6 @@ void LoadConfig( void )
   }
 }
 
-
 int
 #if defined(CSASHOGI) || defined(USI)
 main( int argc, char *argv[] )
@@ -58,12 +57,10 @@ main()
 #endif
 
 #if defined(USI)
-  /*
   if ( argc == 2 && ! strcmp( argv[1], "usi" ) ) { usi_mode = usi_on; }
   else                                           { usi_mode = usi_off; }
-  */
-  usi_mode = usi_on;
- #endif
+  usi_mode = usi_on; /* alwasy on */
+#endif
 
   if ( ini( ptree ) < 0 )
     {

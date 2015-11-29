@@ -241,7 +241,6 @@ int
 open_history( const char *str_name1, const char *str_name2 )
 {
 #if defined(NO_LOGGING)
-  char str_file[SIZE_FILENAME];
   int iret;
 
   iret = record_close( &record_game );

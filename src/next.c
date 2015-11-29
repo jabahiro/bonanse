@@ -101,7 +101,7 @@ gen_next_move( tree_t * restrict ptree, int ply, int turn )
 	      }
 	    psortv[j-1] = sortv;  pmove[j-1] = move;
 	  }
-	if ( psortv[n-1] == INT_MIN ) { ptree->move_last[ply]--; }
+	if ( n > 0 && psortv[n-1] == INT_MIN ) { ptree->move_last[ply]--; }
 
 #if ! defined(MINIMUM)
 	if ( move_hash && ! is_move_valid( ptree, move_hash, turn ) )

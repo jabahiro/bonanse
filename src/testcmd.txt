@@ -1,0 +1,6 @@
+usi
+setoption name Threads value 4
+setoption name Memory[MB] value 768
+isready
+position sfen l2g3nl/1ks1g1r2/p1n1s1bpp/1pppppp2/P6P1/2PPP4/1PB1SPP1P/LS2G2R1/KN1G3NL w - 1
+go btime 0 wtime 0 byoyomi 30000

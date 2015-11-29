@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="attack.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="bitop.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="book.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="csa.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="data.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="debug.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dfpn.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dfpnhash.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="evaldiff.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="evaluate.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gencap.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="genchk.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gendrop.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="genevasn.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gennocap.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hash.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ini.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="io.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="iterate.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="learn1.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="learn2.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="makemove.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mate1ply.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mate3.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="movgenex.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="next.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="phash.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ponder.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="problem.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="proce.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="quiesrch.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="rand.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="root.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sckt.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="search.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="searchr.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="swap.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="thread.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="time.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="unmake.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="utility.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="valid.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="bitop.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="dfpn.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="param.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="shogi.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="bonanza.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

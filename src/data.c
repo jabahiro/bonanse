@@ -250,14 +250,20 @@ unsigned char aifirst_one[512];
 unsigned char ailast_one[512];
 #endif
 
+#if defined(__x86_64__) || defined(_WIN64)
+#define BNZ_64BIT " 64Bit"
+#else
+#define BNZ_64BIT ""
+#endif
+
 #if defined(NDEBUG)
 #  if ! defined(CSASHOGI)
-const char *str_myname = ( "Bonanse " BNZ_VER );
+const char *str_myname = ( "Bonanza " BNZ_VER BNZ_64BIT);
 #  else
-const char *str_myname = ( "Bonanse " BNZ_VER );
+const char *str_myname = ( "Bonanza " BNZ_VER BNZ_64BIT);
 #  endif
 #else
-const char *str_myname = ( "Bonanse " BNZ_VER " Debug Build ("
+const char *str_myname = ( "Bonanza " BNZ_VER BNZ_64BIT " Debug Build ("
 			   __TIME__ " " __DATE__ ")" );
 #endif
 

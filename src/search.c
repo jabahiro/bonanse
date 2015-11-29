@@ -890,8 +890,8 @@ detect_signals( tree_t * restrict ptree )
 #  endif
 
       dnps = (double)nodes * 1000.0 / (double)( tnow - time_turn_start );
-      USIOut( "info time %u nodes %" PRIu64 " nps %d\n",
-	      tnow, nodes, (unsigned int)dnps );
+      USIOut( "info time %u nodes %" PRIu64 " nps %d hashfull %d\n",
+		  tnow - time_turn_start, nodes, (unsigned int)dnps, get_trans_table_used());
 	      
       usi_time_out_last = tnow;
     }

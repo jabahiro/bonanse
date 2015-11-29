@@ -519,15 +519,13 @@ com_turn_start( tree_t * restrict ptree, int flag )
 	  if ( iret < 0 ) { return iret; }
 	}
 #endif
-
-#if defined (USI)
-    if (usi_mode != usi_off)
-	{
-		USIOut("bestmove resign\n");
-	}
+#if defined(USI)
+	  if (usi_mode != usi_off)
+	  {
+		  USIOut("bestmove resign\n");
+	  }
 #endif
-
-      OutCsaShogi( "resign\n" );
+	  OutCsaShogi( "resign\n" );
     }
   else {
 #if defined(USI)

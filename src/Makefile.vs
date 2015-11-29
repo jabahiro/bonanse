@@ -24,7 +24,7 @@ help:
 # /DDFPN            build the DFPN worker of mate-problems server.
 # /DDFPN_CLIENT     enables the client-mode of mate-problem server.
 
-FLAG = /DNDEBUG /DMINIMUM /DTLP /DHAVE_SSE2 /DINANIWA_SHIFT /DUSI /DNO_LOGGING
+FLAG = /DNDEBUG /DMINIMUM /DTLP /DHAVE_SSE2 /DINANIWA_SHIFT /DCSASHOGI /DNO_LOGGING
 
 OBJS = data.obj main.obj io.obj proce.obj ini.obj utility.obj attack.obj\
        gencap.obj gennocap.obj gendrop.obj genevasn.obj mate3.obj genchk.obj\
@@ -35,35 +35,35 @@ OBJS = data.obj main.obj io.obj proce.obj ini.obj utility.obj attack.obj\
        thread.obj sckt.obj debug.obj phash.obj dfpn.obj dfpnhash.obj
 
 cl:
-	$(MAKE) -f Makefile.vs bonanse.exe CC="cl" LD="link"\
+	$(MAKE) -f Makefile.vs bonanza.exe CC="cl" LD="link"\
 		CFLAGS="$(FLAG) /MT /W4 /nologo /O2 /Ob2 /GS- /GL"\
-		LDFLAGS="/NOLOGO /out:bonanse.exe /LTCG"
+		LDFLAGS="/NOLOGO /out:bonanza.exe /LTCG"
 
 cl-pgo:
 	$(MAKE) -f Makefile.vs clean
-	$(MAKE) -f Makefile.vs bonanse.exe CC="cl" LD="link"\
+	$(MAKE) -f Makefile.vs bonanza.exe CC="cl" LD="link"\
 		CFLAGS="$(FLAG) /MT /W4 /nologo /O2 /Ob2 /GS- /GL"\
-		LDFLAGS="/NOLOGO /out:bonanse.exe /LTCG:PGI"
+		LDFLAGS="/NOLOGO /out:bonanza.exe /LTCG:PGI"
 	$(MAKE) -f Makefile.vs pgo-run
-	del bonanse.exe
-	$(MAKE) -f Makefile.vs bonanse.exe LD="link"\
-		LDFLAGS="/NOLOGO /out:bonanse.exe /LTCG:PGO"
+	del bonanza.exe
+	$(MAKE) -f Makefile.vs bonanza.exe LD="link"\
+		LDFLAGS="/NOLOGO /out:bonanza.exe /LTCG:PGO"
 
 icl:
-	$(MAKE) -f Makefile.vs bonanse.exe CC="icl" LD="icl"\
+	$(MAKE) -f Makefile.vs bonanza.exe CC="icl" LD="icl"\
 		CFLAGS="/nologo $(FLAG) /Wall /O2 /Qipo"\
-		LDFLAGS="/nologo /Febonanse.exe"
+		LDFLAGS="/nologo /Febonanza.exe"
 
 icl-pgo:
 	$(MAKE) -f Makefile.vs clean
-	$(MAKE) -f Makefile.vs bonanse.exe CC="icl" LD="icl"\
+	$(MAKE) -f Makefile.vs bonanza.exe CC="icl" LD="icl"\
 		CFLAGS="/nologo $(FLAG) /Wall /O2 /Qprof-gen"\
-		LDFLAGS="/nologo /Febonanse.exe /Qprof-gen"
+		LDFLAGS="/nologo /Febonanza.exe /Qprof-gen"
 	$(MAKE) -f Makefile.vs pgo-run
-	del *.obj bonanse.exe
-	$(MAKE) -f Makefile.vs	bonanse.exe CC="icl" LD="icl"\
+	del *.obj bonanza.exe
+	$(MAKE) -f Makefile.vs	bonanza.exe CC="icl" LD="icl"\
 		CFLAGS="/nologo $(FLAG) /Wall /O2 /Qipo /Qprof-use"\
-		LDFLAGS="/nologo /Febonanse.exe /Qprof-use"
+		LDFLAGS="/nologo /Febonanza.exe /Qprof-use"
 
 pgo-run:
 #	echo learn no-ini 32 32 1 2 2  >> runprof
@@ -85,9 +85,9 @@ pgo-run:
 	echo new                       >> runprof
 	echo move 77                   >> runprof
 	echo quit                      >> runprof
-	bonanse.exe csa_shogi           < runprof
+	bonanza.exe csa_shogi           < runprof
 
-bonanse.exe : $(OBJS) bonanza.res
+bonanza.exe : $(OBJS) bonanza.res
 	$(LD) $(LDFLAGS) $(OBJS) bonanza.res User32.lib Ws2_32.lib
 
 $(OBJS)  : shogi.h param.h bitop.h
@@ -108,4 +108,4 @@ clean :
         del /q *.dyn
 	del /q *.obj
 	del /q *.res
-	del /q bonanse.exe
+	del /q bonanza.exe

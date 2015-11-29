@@ -55,7 +55,7 @@ iterate( tree_t * restrict ptree )
 		  ( mnj_depth_stable == INT_MAX ) ? "" : " stable" );
 
 
-#if defined(USI)
+#if defined(USIXX)
 	  if ( usi_mode != usi_off )
 	    {
 	      char str_usi[6];
