@@ -7,7 +7,9 @@ masterはたぶんビルドできると思いますがビルド方法がわか�
 masterの方のソースコードはえびふらいさんとpiro77さんが作ったBonanza usiをベースにしています。
 
 Bonanzaのfv.bin, book.binが必要です。
+
 将棋所などのUSIプロトコルに対応したGUI将棋ソフトで遊んでください。
+
 [LevelControl.txtの書き方]
 
 スペースで区切って数字を3つ書いてください。左から
